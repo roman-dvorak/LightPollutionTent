@@ -2,9 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// GitHub Pages project page base path. Must match the repository name.
-// Change to '/' if you use a custom domain.
-const BASE = process.env.VITE_BASE_PATH || '/lightpollution-expotent/'
+// Site is served from the custom domain lightpollutiontent.astrometers.eu,
+// so assets live at the domain root.
+const BASE = process.env.VITE_BASE_PATH || '/'
 
 export default defineConfig({
   base: BASE,

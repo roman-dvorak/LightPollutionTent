@@ -2,7 +2,7 @@
 
 Interaktivní kiosková aplikace o světelném znečištění. V režimu s **Stellariem** ovládá běžící instanci planetária přes jeho HTTP API. Ve veřejném **web režimu** funguje i bez Stellaria — simulace oblohy se vykresluje přímo v prohlížeči.
 
-Veřejně nasazená verze: `https://roman-dvorak.github.io/lightpollution-expotent/` (po zapnutí GitHub Pages viz níže).
+Veřejně nasazená verze: http://lightpollutiontent.astrometers.eu/
 
 ## Architektura
 
@@ -68,20 +68,17 @@ Složku `dist/` lze servírovat jakýmkoliv statickým HTTP serverem. Stellarium
 
 ## Automatický deploy na GitHub Pages
 
-Repozitář obsahuje workflow `.github/workflows/deploy.yml`, které při každém pushi do větve `main` automaticky:
+Repozitář obsahuje workflow `.github/workflows/deploy.yml`, které při každém pushi do větve `master` automaticky:
 
 1. Nainstaluje závislosti (`npm ci`).
 2. Sestaví aplikaci (`npm run build`).
 3. Nahraje `app/dist/` na GitHub Pages.
 
-### Nastavení v GitHub UI
+Průběh sestavení najdeš v záložce **Actions**.
 
-1. Otevři repo na GitHub → **Settings → Pages**.
-2. U položky **Build and deployment** vyber **Source: GitHub Actions**.
-3. Po prvním pushi do `main` se workflow spustí automaticky — výsledek najdeš v záložce **Actions**.
-4. Hotovo. Veřejná URL bude `https://roman-dvorak.github.io/lightpollution-expotent/`.
+### Vlastní doména
 
-> Pokud později použiješ vlastní doménu, změň `base` v `app/vite.config.ts` na `'/'`. Aktuální base odpovídá názvu repozitáře (`/lightpollution-expotent/`).
+Web běží na doméně **lightpollutiontent.astrometers.eu**, která je zapsaná v `app/public/CNAME`. Protože se aplikace servíruje z kořene domény, je `base` ve `vite.config.ts` nastavené na `'/'`. Při návratu na adresu `*.github.io/<repo>/` je nutné `base` změnit zpět na `/<repo>/`.
 
 ### Výukový režim se Stellariem
 
