@@ -37,12 +37,24 @@ export type StellariumState = {
   date?: Date
 }
 
+// Longitude of the last applied location, used to find local midnight
+let _currentLon = 14.42
+
+// Nearest local (solar) midnight for a given longitude, as Stellarium UTC string
+function nearestMidnight(lon: number, now = new Date()): string {
+  const DAY = 86_400_000
+  const offset = (lon / 15) * 3_600_000
+  const utc = Math.round((now.getTime() + offset) / DAY) * DAY - offset
+  return new Date(Math.round(utc / 60_000) * 60_000).toISOString().replace(/\.\d{3}Z$/, '')
+}
+
 // Reset Stellarium to kiosk intro state:
 //   Prague, tonight's local midnight, zenith fish-eye, hidden GUI.
 export async function resetToIntro(): Promise<void> {
   const lon = 14.42
   const lat = 50.08
   const FLY = 2
+  _currentLon = lon
   const utcOffset = lon / 15
   const midnight = new Date()
   midnight.setUTCHours(Math.round(-utcOffset), 0, 0, 0)
@@ -75,6 +87,7 @@ export async function applyState(state: StellariumState): Promise<void> {
   midnight.setUTCHours(0 - utcOffset, 0, 0, 0)
   const dateStr = midnight.toISOString().replace(/\.\d{3}Z$/, '')
   const FLY = 2
+  _currentLon = state.lon
 
   const script =
     `core.setObserverLocation(${state.lon}, ${state.lat}, 0, ${FLY}, "", "Earth");` +
@@ -86,6 +99,16 @@ export async function applyState(state: StellariumState): Promise<void> {
   await new Promise(r => setTimeout(r, (FLY + 0.5) * 1000))
   await setProp('StelSkyDrawer.lightPollutionLuminance', String(state.lightPollution))
   _currentLP = state.lightPollution
+}
+
+// Hourly kiosk reset: back to the nearest local midnight, zenith fish-eye.
+// Keeps the current location and light pollution.
+export async function resetToMidnight(): Promise<void> {
+  await runScript(
+    `core.setDate("${nearestMidnight(_currentLon)}", "utc");` +
+    `StelMovementMgr.zoomTo(180, 1);` +
+    `core.moveToAltAzi(90, 0, 1);`
+  )
 }
 
 export async function setLightPollution(value: number): Promise<void> {

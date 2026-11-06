@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Introduction from './components/Introduction'
 import CityGame from './components/CityGame'
 import GlobeView from './components/GlobeView'
-import { resetToIntro, detectSkyMode, type SkyMode } from './services/skyService'
+import { resetToIntro, resetToMidnight, detectSkyMode, type SkyMode } from './services/skyService'
 import asuLogo from './assets/asu-logo.png'
 import casLogo from './assets/cas-logo.png'
 import './i18n'
@@ -18,6 +18,20 @@ export default function App() {
 
   useEffect(() => {
     detectSkyMode().then(setSkyMode).catch(() => setSkyMode('fallback'))
+  }, [])
+
+  // Every full hour put the sky back to local midnight (Stellarium time keeps running)
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>
+    const schedule = () => {
+      const HOUR = 3_600_000
+      timer = setTimeout(() => {
+        resetToMidnight().catch(console.warn)
+        schedule()
+      }, HOUR - (Date.now() % HOUR))
+    }
+    schedule()
+    return () => clearTimeout(timer)
   }, [])
 
   function handleTitleClick() {

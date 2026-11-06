@@ -29,6 +29,13 @@ export async function resetToIntro(): Promise<void> {
   }
 }
 
+export async function resetToMidnight(): Promise<void> {
+  const mode = await detectSkyMode()
+  if (mode === 'stellarium') {
+    return stellarium.resetToMidnight()
+  }
+}
+
 export async function applyState(state: SkyState): Promise<void> {
   const mode = await detectSkyMode()
   if (mode === 'stellarium') {
