@@ -82,7 +82,7 @@ Web běží na doméně **lightpollutiontent.astrometers.eu**, která je zapsan�
 
 ### Výukový režim se Stellariem
 
-Na veřejné URL aplikace automaticky detekuje, jestli prohlížeč vidí `http://localhost:8090` (běžící Stellarium). Pokud ano, použije se plný kioskový režim; jinak se spustí web fallback.
+Na veřejné URL aplikace do sítě nekomunikuje a rovnou běží ve web režimu. Pokud chcete veřejnou verzi propojit s lokálně běžícím Stellariem, otevřete ji s parametrem `?stellarium` (např. `https://lightpollutiontent.astrometers.eu/?stellarium`). Aplikace pak zkusí `http://localhost:8090` a při úspěchu přejde do plného kioskového režimu. Na `localhost` (kiosek) se Stellarium hledá vždy.
 
 ## Záložky aplikace
 

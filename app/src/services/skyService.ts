@@ -11,8 +11,17 @@ export type SkyState = {
 
 let detectedMode: SkyMode | null = null
 
+// Only the kiosk (served from localhost) looks for Stellarium. The public web
+// stays offline unless the URL asks for it with ?stellarium.
+function mayUseStellarium(): boolean {
+  const { hostname, search } = window.location
+  return ['localhost', '127.0.0.1', '[::1]'].includes(hostname) ||
+    new URLSearchParams(search).has('stellarium')
+}
+
 export async function detectSkyMode(): Promise<SkyMode> {
   if (detectedMode) return detectedMode
+  if (!mayUseStellarium()) return (detectedMode = 'fallback')
   const available = await stellarium.isAvailable()
   detectedMode = available ? 'stellarium' : 'fallback'
   return detectedMode
