@@ -7,19 +7,10 @@ export default {
   intro: {
     title: 'Light Pollution',
     subtitle: 'How humanity lost the starry sky',
-    content: `Light pollution is excessive or inappropriate artificial lighting caused by human activity.
-The glow of cities spreads across the landscape and brightens the night sky so much that most people on Earth will never see the Milky Way with the naked eye.
-
-Astronomers measure light pollution using the Bortle Dark‑Sky Scale (1–9):
-• Class 1 – pristine dark sky, Milky Way visible.
-• Class 5 – moderate glow, Milky Way partially visible.
-• Class 9 – bright city, only Moon & planets visible.
-
-The interactive simulator lets you explore how different lighting choices affect the night sky.
-
-Use the Bortle strip below to set a target light‑pollution level, or click the “Light Up the City” tab to place individual lamps and see the impact in real time.`,
     bortle: 'The Bortle Scale',
     bortleDesc: 'Click a class to display it on the simulated sky',
+    factsHint: 'Facts & figures',
+    touchHint: 'Pictures react to mouse and finger movement; tap a card for details.',
   },
   city: {
     title: 'Light Up the City',
@@ -44,18 +35,18 @@ Use the Bortle strip below to set a target light‑pollution level, or click the
       astronomer:      'Astronomer',
     },
     lightDesc: {
-      globe:           'Omnidirectional — high LP',
-      fullCutoff:      'Downward only — low LP at any height',
-      coldLED:         'Cold white LED — medium LP',
-      pcAmber:         'Warm amber LED — low LP',
-      floodlight:      'Floodlight — very high LP',
-      church:          'Upward spotlights — extreme LP',
-      house:           'Windows & exterior — low LP',
-      badBillboard:    'Bottom-lit — high LP',
-      betterBillboard: 'Top-lit — low LP',
-      darkBillboard:   'No lighting — zero LP',
-      cars:            'High beams — medium LP',
-      astronomer:      'Red lamp — zero LP',
+      globe:           'Omnidirectional, high LP',
+      fullCutoff:      'Downward only, low LP at any height',
+      coldLED:         'Cold white LED, medium LP',
+      pcAmber:         'Warm amber LED, low LP',
+      floodlight:      'Floodlight, very high LP',
+      church:          'Upward spotlights, extreme LP',
+      house:           'Windows & exterior, low LP',
+      badBillboard:    'Bottom-lit, high LP',
+      betterBillboard: 'Top-lit, low LP',
+      darkBillboard:   'No lighting, zero LP',
+      cars:            'High beams, medium LP',
+      astronomer:      'Red lamp, zero LP',
     },
     height: 'Height',
     maxReached: 'Element limit reached',
@@ -81,11 +72,11 @@ Use the Bortle strip below to set a target light‑pollution level, or click the
     title: 'About',
     body: `Light Up the City, Dim the Sky is an interactive web application that visually demonstrates the impact of light pollution on the night sky.
 
-Users place different types of street lamps, floodlights, and other light sources onto a nocturnal city panorama and watch in real time as the sky brightness changes — from a naturally dark sky (Bortle 1) to an over-lit urban sky (Bortle 9).
+Users place different types of street lamps, floodlights, and other light sources onto a nocturnal city panorama and watch in real time as the sky brightness changes, from a naturally dark sky (Bortle 1) to an over-lit urban sky (Bortle 9).
 
 Clicking on the Bortle scale or placing lights instantly shows the current pollution level on the simulated sky.
 
-The goal of the project is to raise awareness about light pollution and show that properly designed lighting can significantly reduce its impact — without sacrificing the safety and comfort that artificial light provides.
+The goal of the project is to raise awareness about light pollution and show that properly designed lighting can significantly reduce its impact without sacrificing the safety and comfort that artificial light provides.
 
 The project was created in 2026 for the Science Fair (Veletrh Vědy).`,
   },
