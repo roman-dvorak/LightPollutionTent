@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import Introduction from './components/Introduction'
 import CityGame from './components/CityGame'
 import GlobeView from './components/GlobeView'
 import { resetToIntro, resetToMidnight, detectSkyMode, type SkyMode } from './services/skyService'
 import asuLogo from './assets/asu-logo.png'
 import casLogo from './assets/cas-logo.png'
+import astrometersLogo from './assets/astrometers-logo.png'
 import './i18n'
 
 type Tab = 'intro' | 'city' | 'globe'
@@ -20,7 +21,7 @@ export default function App() {
     detectSkyMode().then(setSkyMode).catch(() => setSkyMode('fallback'))
   }, [])
 
-  // Every full hour put the sky back to local midnight (Stellarium time keeps running)
+  // Every full hour put the sky back to local midnight and recentre the view
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>
     const schedule = () => {
@@ -55,7 +56,7 @@ export default function App() {
       <header className="sticky top-0 z-50 flex items-center gap-4 px-6 py-3 border-b border-slate-800 bg-[#0a0a14]/90 backdrop-blur">
         <div className="flex items-center gap-2 mr-4 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity" onClick={handleTitleClick} title="Vycentrovat oblohu">
           <span className="text-2xl">🔭</span>
-          <span className="text-white font-semibold text-sm hidden sm:block">Rozviť město, zhasni oblohu</span>
+          <span className="text-white font-semibold text-sm hidden sm:block">Rozsviť město, zhasni oblohu</span>
         </div>
 
         <nav className="hidden sm:flex items-center gap-1">
@@ -145,11 +146,15 @@ export default function App() {
             </button>
             <h2 className="text-2xl font-bold text-white mb-4">{t('about.title')}</h2>
             <div className="text-slate-300 leading-relaxed whitespace-pre-line text-sm">
-              {t('about.body')}
+              <Trans i18nKey="about.body" components={{ b: <strong className="text-amber-300 font-semibold" /> }} />
             </div>
             <div className="mt-6 pt-4 border-t border-slate-700 flex items-center justify-center gap-6">
               <img src={asuLogo} alt="Astronomický ústav AV ČR" className="h-24 opacity-80 hover:opacity-100 transition-opacity" />
               <img src={casLogo} alt="Česká astronomická společnost" className="h-24 opacity-80 hover:opacity-100 transition-opacity" />
+            </div>
+            <div className="mt-4 pt-4 border-t border-slate-800 flex items-center justify-center gap-4">
+              <span className="text-sm text-slate-300 text-left whitespace-pre-line">{t('about.credit')}</span>
+              <img src={astrometersLogo} alt="AstroMeters" className="h-20 opacity-90 hover:opacity-100 transition-opacity" />
             </div>
           </div>
         </div>

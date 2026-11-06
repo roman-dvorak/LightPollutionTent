@@ -70,7 +70,7 @@ export default {
   about: {
     button: 'About',
     title: 'About',
-    body: `Light Up the City, Dim the Sky is an interactive web application that visually demonstrates the impact of light pollution on the night sky.
+    body: `<b>Light Up the City, Dim the Sky</b> is an interactive web application that visually demonstrates the impact of light pollution on the night sky.
 
 Users place different types of street lamps, floodlights, and other light sources onto a nocturnal city panorama and watch in real time as the sky brightness changes, from a naturally dark sky (Bortle 1) to an over-lit urban sky (Bortle 9).
 
@@ -78,7 +78,8 @@ Clicking on the Bortle scale or placing lights instantly shows the current pollu
 
 The goal of the project is to raise awareness about light pollution and show that properly designed lighting can significantly reduce its impact without sacrificing the safety and comfort that artificial light provides.
 
-The project was created in 2026 for the Science Fair (Veletrh Vědy).`,
+The project was created in 2026 for the Science Fair (Veletrh vědy) and is still being developed.`,
+    credit: 'Made by\nRoman Dvořák',
   },
   stel: {
     sending: 'Updating sky…',
