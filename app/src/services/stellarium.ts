@@ -64,6 +64,7 @@ export async function resetToIntro(): Promise<void> {
   await runScript(
     `core.setObserverLocation(${lon}, ${lat}, 200, ${FLY}, "Prague", "Earth");` +
     `core.setDate("${dateStr}", "utc");` +
+    `core.setTimeRate(0);` +
     `StelMovementMgr.zoomTo(180, ${FLY});` +
     `core.moveToAltAzi(90, 0, 1);`
   ).catch(console.warn)
@@ -92,6 +93,7 @@ export async function applyState(state: StellariumState): Promise<void> {
   const script =
     `core.setObserverLocation(${state.lon}, ${state.lat}, 0, ${FLY}, "", "Earth");` +
     `core.setDate("${dateStr}", "utc");` +
+    `core.setTimeRate(0);` +
     `StelMovementMgr.zoomTo(180, 0);`
 
   await runScript(script)
@@ -101,11 +103,12 @@ export async function applyState(state: StellariumState): Promise<void> {
   _currentLP = state.lightPollution
 }
 
-// Hourly kiosk reset: back to the nearest local midnight, zenith fish-eye.
+// Hourly kiosk reset: back to the nearest local midnight (time stopped), zenith fish-eye.
 // Keeps the current location and light pollution.
 export async function resetToMidnight(): Promise<void> {
   await runScript(
     `core.setDate("${nearestMidnight(_currentLon)}", "utc");` +
+    `core.setTimeRate(0);` +
     `StelMovementMgr.zoomTo(180, 1);` +
     `core.moveToAltAzi(90, 0, 1);`
   )
